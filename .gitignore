@@ -1,3 +1,6 @@
 # Project exclude paths
 /target/
 /.idea/
+
+# Exlude some files
+spring-security-demo.iml
