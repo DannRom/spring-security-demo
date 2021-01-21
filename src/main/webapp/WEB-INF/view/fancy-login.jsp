@@ -42,7 +42,9 @@
 
             <div style="padding-top: 30px" class="panel-body">
 
-                <!-- Login Form, don't forget to use form:form. The form by itself works, but without the security -->
+                <!-- Login Form, don't forget to use form:form. The form by itself works, but without the security.
+                This jsp form tag automatically uses CSRF token. Spring security handles these tokens to validate
+                submissions.-->
                 <form:form action="${pageContext.request.contextPath}/authenticateTheUser"
                       method="POST" class="form-horizontal">
 
