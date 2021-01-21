@@ -27,10 +27,13 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .anyRequest()
                 .authenticated()
-                .and()
-                .formLogin()
+            .and()
+            .formLogin()
                 .loginPage("/showMyLoginPage")
                 .loginProcessingUrl("/authenticateTheUser")
+                .permitAll()
+            .and()
+            .logout()   // Note: default reference to this is contextPath/logout in jsp form
                 .permitAll();
     }
 }

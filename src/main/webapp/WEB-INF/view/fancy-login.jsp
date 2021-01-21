@@ -5,7 +5,7 @@
   Time: 12:08 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
@@ -59,11 +59,12 @@
                                     </div>
                                 </c:if>
 
-                                <!--
-                                <div class="alert alert-success col-xs-offset-1 col-xs-10">
-                                    You have been logged out.
-                                </div>
-                                -->
+                                <!-- Check for logout -->
+                                <c:if test="${param.logout != null}">
+                                    <div class="alert alert-success col-xs-offset-1 col-xs-10">
+                                        You have been logged out.
+                                    </div>
+                                </c:if>
 
                             </div>
                         </div>
