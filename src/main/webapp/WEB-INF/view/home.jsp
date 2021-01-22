@@ -7,6 +7,9 @@ To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<!-- note taglib directory above is different for base and security. This is because
+security taglib is developed by the spring security team -->
 
 <html>
 <head>
@@ -18,6 +21,13 @@ To change this template use File | Settings | File Templates.
 
     <p>
         Welcome to the luv2code Company Home Page
+    </p>
+
+    <!-- display username and role -->
+    <p>
+        User: <security:authentication property="principal.username"/>
+        <br><br>
+        Role(s): <security:authentication property="principal.authorities"/>
     </p>
 
     <!-- Logout - even for just a button, you need a from to POST the submission -->
