@@ -30,6 +30,14 @@ security taglib is developed by the spring security team -->
         Role(s): <security:authentication property="principal.authorities"/>
     </p>
 
+    <!-- Add a link to point to /leaders ... this is for the manager.
+    ALso note pageContext selects the page, request.contextPath gets the path
+    of the selected page. -->
+    <p>
+        <a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+        (Only for manager peeps)
+    </p>
+
     <!-- Logout - even for just a button, you need a from to POST the submission -->
     <form:form action="${pageContext.request.contextPath}/logout" method="post">
         <input type="submit" value="Logout">
