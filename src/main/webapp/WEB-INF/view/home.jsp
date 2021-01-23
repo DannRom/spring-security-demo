@@ -38,6 +38,12 @@ security taglib is developed by the spring security team -->
         (Only for manager peeps)
     </p>
 
+    <!-- Add a link to point to /systems ... this is for the admins -->
+    <p>
+        <a href="${pageContext.request.contextPath}/systems">IT Systems Meeting</a>
+        (Only for admin peeps)
+    </p>
+
     <!-- Logout - even for just a button, you need a from to POST the submission -->
     <form:form action="${pageContext.request.contextPath}/logout" method="post">
         <input type="submit" value="Logout">

@@ -15,6 +15,7 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         // In memory authentication is deprecated in later versions.
+        // The roles can be any string I believe.
         User.UserBuilder users = User.withDefaultPasswordEncoder();
         auth.inMemoryAuthentication()
                 .withUser(users.username("john").password("test123").roles("EMPLOYEE"))
@@ -24,9 +25,14 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // Small explanation of this configuration.
+        // https://stackoverflow.com/questions/30836642/spring-security-and-method
         http.authorizeRequests()
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/").hasRole("EMPLOYEE")
+                .antMatchers("/leaders/**").hasRole("MANAGER")
+                .antMatchers("/systems/**").hasRole("ADMIN")
+                //.anyRequest().authenticated() // Anyone can view page if they are authenticated.
             .and()
             .formLogin()
                 .loginPage("/showMyLoginPage")
