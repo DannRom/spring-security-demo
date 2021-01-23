@@ -28,6 +28,7 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Small explanation of this configuration.
         // https://stackoverflow.com/questions/30836642/spring-security-and-method
+        // The string values can be anything, so long as they correspond to their role/dir/file.
         http.authorizeRequests()
                 .antMatchers("/").hasRole("EMPLOYEE")
                 .antMatchers("/leaders/**").hasRole("MANAGER")
@@ -40,6 +41,9 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
             .and()
             .logout()   // Note: default reference to this is contextPath/logout in jsp form
-                .permitAll();
+                .permitAll()
+            .and()
+            .exceptionHandling()
+                .accessDeniedPage("/access-denied");
     }
 }
