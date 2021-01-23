@@ -30,19 +30,33 @@ security taglib is developed by the spring security team -->
         Role(s): <security:authentication property="principal.authorities"/>
     </p>
 
-    <!-- Add a link to point to /leaders ... this is for the manager.
-    ALso note pageContext selects the page, request.contextPath gets the path
-    of the selected page. -->
-    <p>
-        <a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
-        (Only for manager peeps)
-    </p>
+    <security:authorize access="hasRole('MANAGER')">
+        <!-- Anything within this block can only be seen if user has the role MANAGER.
+        All this content is not only not displayed on client side, it isn't even sent
+        to their client. Therefore, inspecting page source will not display this info.
+        This is why I placed the comments within the tag space instead of outside.
+        If a user tries to access the link below "/leaders" then they can still do
+        that through the url. This is why we use antMatcher().hasRole() in our security
+        configuration file. This access tag is used to only hide links and content within
+        a page. -->
 
-    <!-- Add a link to point to /systems ... this is for the admins -->
-    <p>
-        <a href="${pageContext.request.contextPath}/systems">IT Systems Meeting</a>
-        (Only for admin peeps)
-    </p>
+
+        <!-- Add a link to point to /leaders ... this is for the manager.
+        ALso note pageContext selects the page, request.contextPath gets the path
+        of the selected page. -->
+        <p>
+            <a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+            (Only for manager peeps)
+        </p>
+    </security:authorize>
+
+    <security:authorize access="hasRole('ADMIN')">
+        <!-- Add a link to point to /systems ... this is for the admins -->
+        <p>
+            <a href="${pageContext.request.contextPath}/systems">IT Systems Meeting</a>
+            (Only for admin peeps)
+        </p>
+    </security:authorize>
 
     <!-- Logout - even for just a button, you need a from to POST the submission -->
     <form:form action="${pageContext.request.contextPath}/logout" method="post">
