@@ -1,5 +1,6 @@
 package com.luv2code.springsecurity.demo.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,13 +8,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    // add a reference to our security data source
+    @Autowired
+    private DataSource securityDataSource;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
+        /*
         // In memory authentication is deprecated in later versions.
         // The roles can be any string I believe.
         User.UserBuilder users = User.withDefaultPasswordEncoder();
@@ -21,11 +28,14 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser(users.username("john").password("test123").roles("EMPLOYEE"))
                 .withUser(users.username("mary").password("test123").roles("EMPLOYEE", "MANAGER"))
                 .withUser(users.username("susan").password("test123").roles("EMPLOYEE", "ADMIN"));
+         */
+
+        // jdbc authentication. A query will be performed for every login attempt.
+        auth.jdbcAuthentication().dataSource(securityDataSource); // configured in demoAppConfig
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         // Small explanation of this configuration.
         // https://stackoverflow.com/questions/30836642/spring-security-and-method
         // The string values can be anything, so long as they correspond to their role/dir/file.
