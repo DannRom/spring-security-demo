@@ -56,4 +56,9 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
             .exceptionHandling()
                 .accessDeniedPage("/access-denied");
     }
+
+    // TODO Add user registration page and custom db tables.
+    // TODO Add a public landing page (easy) though do it after the above for convenience.
+    // TODO The Udemy course has a written tutorial for these steps, link:
+    // TODO https://www.udemy.com/course/spring-hibernate-tutorial/learn/lecture/9552122#overview
 }
